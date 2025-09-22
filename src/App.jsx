@@ -1,9 +1,17 @@
-function App() {
+import Header from './components/Header';
+import Hero from './components/Hero';
+
+export default function App() {
   return (
-    <>
-      <h1>Hello</h1>
-    </>
+    <div className='min-h-screen text-body'>
+      <Header />
+      <Main>
+        <Hero />
+      </Main>
+    </div>
   );
 }
 
-export default App;
+function Main({ children }) {
+  return <main className='max-w-[80rem] mx-auto'>{children}</main>;
+}
