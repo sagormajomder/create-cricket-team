@@ -1,4 +1,4 @@
-import { use, useState } from 'react';
+import { use } from 'react';
 import toast from 'react-hot-toast';
 
 export default function AvailablePlayers({
@@ -6,8 +6,10 @@ export default function AvailablePlayers({
   onSelectPlayer,
   totalCoin,
   totalSelectedPlayer,
+  selectedPlayers,
 }) {
   const playersData = use(fetchPlayersPromise);
+  const selectedIds = new Set(selectedPlayers?.map(p => p.id));
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(18.75rem,1fr))] items-start justify-between gap-6'>
@@ -18,14 +20,20 @@ export default function AvailablePlayers({
           onSelectPlayer={onSelectPlayer}
           totalCoin={totalCoin}
           totalSelectedPlayer={totalSelectedPlayer}
+          isSelected={selectedIds.has(player.id)}
         />
       ))}
     </div>
   );
 }
 // Child component
-function Player({ player, onSelectPlayer, totalCoin, totalSelectedPlayer }) {
-  const [isSelect, setIsSelect] = useState(false);
+function Player({
+  player,
+  onSelectPlayer,
+  totalCoin,
+  totalSelectedPlayer,
+  isSelected,
+}) {
   const {
     id,
     playerImage,
@@ -39,6 +47,7 @@ function Player({ player, onSelectPlayer, totalCoin, totalSelectedPlayer }) {
   } = player;
 
   function handleClick() {
+    if (isSelected) return; // already purchased
     if (totalCoin < Number(playerPrice.slice(1))) {
       toast.error(
         `Sorry! You don't have enough coin to select ${player.playerName}`
@@ -63,7 +72,6 @@ function Player({ player, onSelectPlayer, totalCoin, totalSelectedPlayer }) {
     };
 
     onSelectPlayer(purchasePlayer);
-    setIsSelect(true);
   }
 
   return (
@@ -98,8 +106,8 @@ function Player({ player, onSelectPlayer, totalCoin, totalSelectedPlayer }) {
       </div>
       <div className='flex justify-between items-center'>
         <p className='font-semibold'>Price: {playerPrice}</p>
-        <button onClick={handleClick} disabled={isSelect} className='btn'>
-          {isSelect ? 'Purchased' : 'Choose Player'}
+        <button onClick={handleClick} disabled={isSelected} className='btn'>
+          {isSelected ? 'Purchased' : 'Choose Player'}
         </button>
       </div>
     </div>
