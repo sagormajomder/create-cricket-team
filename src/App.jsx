@@ -20,11 +20,6 @@ export default function App() {
   const totalSelectedPlayer = selectedPlayers.length;
 
   function handleSelectPlayer(player) {
-    // Prevent duplicate selection
-    if (selectedPlayers.some(p => p.id === player.id)) {
-      toast.error(`${player.playerName} is already selected`);
-      return;
-    }
     setSelectedPlayers(p => [...p, player]);
     setTotalCoin(coin => coin - player.playerPrice);
     toast.success(`${player.playerName} is selected`);

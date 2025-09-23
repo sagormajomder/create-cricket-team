@@ -9,20 +9,24 @@ export default function AvailablePlayers({
   selectedPlayers,
 }) {
   const playersData = use(fetchPlayersPromise);
-  const selectedIds = new Set(selectedPlayers?.map(p => p.id));
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(18.75rem,1fr))] items-start justify-between gap-6'>
-      {playersData.map(player => (
-        <Player
-          player={player}
-          key={player.id}
-          onSelectPlayer={onSelectPlayer}
-          totalCoin={totalCoin}
-          totalSelectedPlayer={totalSelectedPlayer}
-          isSelected={selectedIds.has(player.id)}
-        />
-      ))}
+      {playersData.map(player => {
+        const isSelected = Boolean(
+          selectedPlayers?.find(p => p.id === player.id)
+        );
+        return (
+          <Player
+            player={player}
+            key={player.id}
+            onSelectPlayer={onSelectPlayer}
+            totalCoin={totalCoin}
+            totalSelectedPlayer={totalSelectedPlayer}
+            isSelected={isSelected}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -48,6 +52,7 @@ function Player({
 
   function handleClick() {
     if (isSelected) return; // already purchased
+
     if (totalCoin < Number(playerPrice.slice(1))) {
       toast.error(
         `Sorry! You don't have enough coin to select ${player.playerName}`
