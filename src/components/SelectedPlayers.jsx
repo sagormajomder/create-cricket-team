@@ -1,14 +1,23 @@
-export default function SelectedPlayers({ selectedPlayers }) {
+export default function SelectedPlayers({ selectedPlayers, onToggle }) {
   if (selectedPlayers.length === 0) {
     return <p>Yet no player selected. Please purchased a player first</p>;
   }
 
   return (
-    <div className='space-y-3'>
-      {selectedPlayers.map(p => (
-        <SelectedPlayer player={p} key={p.id} />
-      ))}
-    </div>
+    <>
+      <div className='space-y-3'>
+        {selectedPlayers.map(p => (
+          <SelectedPlayer player={p} key={p.id} />
+        ))}
+      </div>
+      <div className='p-2 rounded-2xl border border-body cursor-pointer max-w-max'>
+        <button
+          onClick={() => onToggle(t => !t)}
+          className='bg-primary px-3.5 py-3 text-body font-semibold rounded-xl cursor-pointer'>
+          Add More Player
+        </button>
+      </div>
+    </>
   );
 }
 

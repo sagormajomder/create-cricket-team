@@ -35,7 +35,10 @@ export default function App() {
             <span className='loading loading-spinner loading-xl'></span>
           }>
           {toggle ? (
-            <SelectedPlayers selectedPlayers={selectedPlayers} />
+            <SelectedPlayers
+              selectedPlayers={selectedPlayers}
+              onToggle={setToggle}
+            />
           ) : (
             <AvailablePlayers
               fetchPlayersPromise={fetchPlayersPromise}
