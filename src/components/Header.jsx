@@ -3,7 +3,7 @@ import Logo from '../assets/logo.png';
 export default function Header() {
   return (
     <header className='mb-6'>
-      <nav className='max-w-[80rem] mx-auto flex justify-between items-center'>
+      <nav className='max-w-[80rem] mx-auto flex justify-between items-center px-3'>
         <a href='#'>
           <img src={Logo} alt='Logo' />
         </a>

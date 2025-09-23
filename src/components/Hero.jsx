@@ -5,12 +5,12 @@ export default function Hero() {
     <figure
       style={{ backgroundImage: 'url(./src/assets/bg-shadow.png)' }}
       className='bg-no-repeat py-14 rounded-2xl  bg-black/90 bg-cover bg-center'>
-      <div className='text-white flex flex-col gap-4 items-center justify-center'>
+      <div className='text-white flex flex-col gap-4 items-center justify-center text-center px-3'>
         <img src={Banner} alt='Banner Image' />
-        <h1 className='text-4xl font-bold'>
+        <h1 className='lg:text-4xl md:text-3xl text-2xl font-bold'>
           Assemble Your Ultimate Dream 11 Cricket Team
         </h1>
-        <p className='text-white/70 font-medium text-2xl'>
+        <p className='text-white/70 font-medium md:text-2xl text-xl '>
           Beyond Boundaries Beyond Limits
         </p>
         <div className='p-2 rounded-2xl border border-primary cursor-pointer'>

@@ -13,5 +13,5 @@ export default function App() {
 }
 
 function Main({ children }) {
-  return <main className='max-w-[80rem] mx-auto'>{children}</main>;
+  return <main className='max-w-[80rem] mx-auto px-3'>{children}</main>;
 }
