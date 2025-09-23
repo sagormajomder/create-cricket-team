@@ -4,7 +4,20 @@ export default function SelectedPlayers({
   onRemoveSeletedPlayers,
 }) {
   if (selectedPlayers.length === 0) {
-    return <p>Yet no player selected. Please purchased a player first</p>;
+    return (
+      <>
+        <p className='mb-4 bg-red-400 text-white text-center rounded-md p-3 max-w-fit font-medium mx-auto'>
+          No player selected. Please select a player 🙂
+        </p>
+        <div className='p-2 rounded-2xl border border-body cursor-pointer max-w-fit mx-auto mb-4'>
+          <button
+            onClick={() => onToggle(t => !t)}
+            className='bg-primary px-5 py-3 text-body font-semibold rounded-xl cursor-pointer'>
+            Add Player
+          </button>
+        </div>
+      </>
+    );
   }
 
   return (
