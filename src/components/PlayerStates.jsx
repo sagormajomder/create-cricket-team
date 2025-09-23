@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function PlayerStates({ toggle, onToggle }) {
+export default function PlayerStates({
+  toggle,
+  onToggle,
+  totalSelectedPlayer,
+}) {
   const selectedBtnStyle = 'text-body bg-primary font-semibold';
 
   function handleBtnClick() {
@@ -8,9 +12,11 @@ export default function PlayerStates({ toggle, onToggle }) {
   }
 
   return (
-    <div className='flex flex-col sm:flex-row gap-4 items-center justify-between py-5'>
+    <div className='flex flex-col sm:flex-row gap-4 items-center justify-between mb-6'>
       <h2 className='text-2xl font-bold'>
-        {toggle ? 'Selected Players' : 'Available Players'}
+        {toggle
+          ? `Selected Players (${totalSelectedPlayer}/6)`
+          : 'Available Players'}
       </h2>
       <div className='text-gray-500'>
         <button
@@ -27,7 +33,7 @@ export default function PlayerStates({ toggle, onToggle }) {
             toggle ? selectedBtnStyle : ''
           }
           `}>
-          Selected (0)
+          Selected ({totalSelectedPlayer})
         </button>
       </div>
     </div>
