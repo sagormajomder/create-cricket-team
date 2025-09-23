@@ -5,6 +5,7 @@ export default function AvailablePlayers({
   fetchPlayersPromise,
   onSelectPlayer,
   totalCoin,
+  totalSelectedPlayer,
 }) {
   const playersData = use(fetchPlayersPromise);
 
@@ -16,13 +17,14 @@ export default function AvailablePlayers({
           key={player.id}
           onSelectPlayer={onSelectPlayer}
           totalCoin={totalCoin}
+          totalSelectedPlayer={totalSelectedPlayer}
         />
       ))}
     </div>
   );
 }
 // Child component
-function Player({ player, onSelectPlayer, totalCoin }) {
+function Player({ player, onSelectPlayer, totalCoin, totalSelectedPlayer }) {
   const [isSelect, setIsSelect] = useState(false);
   const {
     id,
@@ -41,6 +43,11 @@ function Player({ player, onSelectPlayer, totalCoin }) {
       toast.error(
         `Sorry! You don't have enough coin to select ${player.playerName}`
       );
+      return;
+    }
+
+    if (totalSelectedPlayer === 6) {
+      toast.error('Maximum player is selected!');
       return;
     }
     const purchasePlayer = {

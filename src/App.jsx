@@ -57,6 +57,7 @@ export default function App() {
               fetchPlayersPromise={fetchPlayersPromise}
               onSelectPlayer={handleSelectPlayer}
               totalCoin={totalCoin}
+              totalSelectedPlayer={totalSelectedPlayer}
             />
           )}
         </Suspense>
