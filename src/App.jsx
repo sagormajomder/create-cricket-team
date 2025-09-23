@@ -26,7 +26,10 @@ export default function App() {
   }
 
   function handleRemoveSelectedPlayer(id) {
+    const player = selectedPlayers.find(p => p.id === id);
+    setTotalCoin(coin => coin + player.playerPrice);
     setSelectedPlayers(players => players.filter(p => p.id !== id));
+    toast.success(`${player.playerName} is removed Successfully`);
   }
 
   return (
@@ -58,6 +61,7 @@ export default function App() {
           )}
         </Suspense>
       </Main>
+      {/* For Notification */}
       <Toaster
         toastOptions={{
           error: {
