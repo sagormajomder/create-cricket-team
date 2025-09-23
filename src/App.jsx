@@ -20,6 +20,10 @@ export default function App() {
     setSelectedPlayers(p => [...p, player]);
   }
 
+  function handleRemoveSelectedPlayer(id) {
+    setSelectedPlayers(players => players.filter(p => p.id !== id));
+  }
+
   return (
     <div className='min-h-screen text-body text-sm md:text-base'>
       <Header />
@@ -38,6 +42,7 @@ export default function App() {
             <SelectedPlayers
               selectedPlayers={selectedPlayers}
               onToggle={setToggle}
+              onRemoveSeletedPlayers={handleRemoveSelectedPlayer}
             />
           ) : (
             <AvailablePlayers

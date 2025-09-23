@@ -1,13 +1,21 @@
-export default function SelectedPlayers({ selectedPlayers, onToggle }) {
+export default function SelectedPlayers({
+  selectedPlayers,
+  onToggle,
+  onRemoveSeletedPlayers,
+}) {
   if (selectedPlayers.length === 0) {
     return <p>Yet no player selected. Please purchased a player first</p>;
   }
 
   return (
     <>
-      <div className='space-y-3'>
+      <div className='space-y-3 mb-4'>
         {selectedPlayers.map(p => (
-          <SelectedPlayer player={p} key={p.id} />
+          <SelectedPlayer
+            player={p}
+            key={p.id}
+            onRemoveSeletedPlayers={onRemoveSeletedPlayers}
+          />
         ))}
       </div>
       <div className='p-2 rounded-2xl border border-body cursor-pointer max-w-max'>
@@ -22,18 +30,8 @@ export default function SelectedPlayers({ selectedPlayers, onToggle }) {
 }
 
 // Child Componet
-function SelectedPlayer({ player }) {
-  const {
-    id,
-    playerImage,
-    playerName,
-    playerCountry,
-    playingRole,
-    playerRating,
-    batingStyle,
-    bowlingStyle,
-    playerPrice,
-  } = player;
+function SelectedPlayer({ player, onRemoveSeletedPlayers }) {
+  const { id, playerImage, playerName, batingStyle } = player;
 
   return (
     <div className='border border-gray-400 rounded-xl flex justify-between items-center p-4'>
@@ -48,7 +46,11 @@ function SelectedPlayer({ player }) {
           <p className='text-gray-400'>{batingStyle}</p>
         </div>
       </div>
-      <button className='cursor-pointer'>❌</button>
+      <button
+        onClick={() => onRemoveSeletedPlayers(id)}
+        className='cursor-pointer'>
+        ❌
+      </button>
     </div>
   );
 }
