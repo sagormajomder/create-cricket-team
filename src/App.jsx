@@ -1,4 +1,5 @@
 import { Suspense, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import AvailablePlayers from './components/AvailablePlayers';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -14,10 +15,14 @@ const fetchPlayersPromise = fetchPlayers();
 export default function App() {
   const [toggle, setToggle] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [totalCoin, setTotalCoin] = useState(600000000);
+
   const totalSelectedPlayer = selectedPlayers.length;
 
   function handleSelectPlayer(player) {
     setSelectedPlayers(p => [...p, player]);
+    setTotalCoin(coin => coin - player.playerPrice);
+    toast.success(`${player.playerName} is selected`);
   }
 
   function handleRemoveSelectedPlayer(id) {
@@ -26,7 +31,7 @@ export default function App() {
 
   return (
     <div className='min-h-screen text-body text-sm md:text-base'>
-      <Header />
+      <Header totalCoin={totalCoin} />
       <Main>
         <Hero />
         <PlayerStates
@@ -48,10 +53,18 @@ export default function App() {
             <AvailablePlayers
               fetchPlayersPromise={fetchPlayersPromise}
               onSelectPlayer={handleSelectPlayer}
+              totalCoin={totalCoin}
             />
           )}
         </Suspense>
       </Main>
+      <Toaster
+        toastOptions={{
+          error: {
+            duration: 3000,
+          },
+        }}
+      />
     </div>
   );
 }

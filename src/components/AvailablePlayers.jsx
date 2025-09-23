@@ -1,8 +1,10 @@
 import { use, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function AvailablePlayers({
   fetchPlayersPromise,
   onSelectPlayer,
+  totalCoin,
 }) {
   const playersData = use(fetchPlayersPromise);
 
@@ -13,13 +15,15 @@ export default function AvailablePlayers({
           player={player}
           key={player.id}
           onSelectPlayer={onSelectPlayer}
+          totalCoin={totalCoin}
         />
       ))}
     </div>
   );
 }
 // Child component
-function Player({ player, onSelectPlayer }) {
+function Player({ player, onSelectPlayer, totalCoin }) {
+  const [isSelect, setIsSelect] = useState(false);
   const {
     id,
     playerImage,
@@ -32,9 +36,13 @@ function Player({ player, onSelectPlayer }) {
     playerPrice,
   } = player;
 
-  const [isSelect, setIsSelect] = useState(false);
-
   function handleClick() {
+    if (totalCoin < Number(playerPrice.slice(1))) {
+      toast.error(
+        `Sorry! You don't have enough coin to select ${player.playerName}`
+      );
+      return;
+    }
     const purchasePlayer = {
       id,
       playerImage,
@@ -44,12 +52,13 @@ function Player({ player, onSelectPlayer }) {
       playerRating,
       batingStyle,
       bowlingStyle,
-      playerPrice,
+      playerPrice: Number(playerPrice.slice(1)),
     };
 
     onSelectPlayer(purchasePlayer);
     setIsSelect(true);
   }
+
   return (
     <div className='border border-gray-400 rounded-xl p-5 space-y-2'>
       <img
@@ -82,10 +91,7 @@ function Player({ player, onSelectPlayer }) {
       </div>
       <div className='flex justify-between items-center'>
         <p className='font-semibold'>Price: {playerPrice}</p>
-        <button
-          onClick={handleClick}
-          disabled={isSelect}
-          className='px-3 py-1 rounded-lg bg-gray-100 text-body font-medium cursor-pointer'>
+        <button onClick={handleClick} disabled={isSelect} className='btn'>
           {isSelect ? 'Purchased' : 'Choose Player'}
         </button>
       </div>
