@@ -1,6 +1,7 @@
 import { Suspense, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import AvailablePlayers from './components/AvailablePlayers';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import PlayerStates from './components/PlayerStates';
@@ -63,6 +64,7 @@ export default function App() {
           )}
         </Suspense>
       </Main>
+      <Footer />
       {/* For Notification */}
       <Toaster
         toastOptions={{
@@ -77,6 +79,8 @@ export default function App() {
 
 function Main({ children }) {
   return (
-    <main className='max-w-[80rem] mx-auto px-3 space-y-14'>{children}</main>
+    <main className='max-w-[80rem] mx-auto px-3 space-y-14 pb-14'>
+      {children}
+    </main>
   );
 }

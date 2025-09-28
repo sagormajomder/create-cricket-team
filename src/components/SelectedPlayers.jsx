@@ -5,7 +5,7 @@ export default function SelectedPlayers({
 }) {
   if (selectedPlayers.length === 0) {
     return (
-      <>
+      <div className='space-y-3 mb-4'>
         <p className='mb-4 bg-red-400 text-white text-center rounded-md p-3 max-w-fit font-medium mx-auto'>
           No player selected. Please select a player 🙂
         </p>
@@ -16,7 +16,7 @@ export default function SelectedPlayers({
             Add Player
           </button>
         </div>
-      </>
+      </div>
     );
   }
 
